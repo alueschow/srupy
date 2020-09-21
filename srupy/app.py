@@ -138,9 +138,7 @@ class SRUpy(object):
                 'startRecord': 1,
 
                 # default value is determined by the server
-                # for the sake of multi page browsing,
-                # we use 10 as default, however
-                'maximumRecords': 10,
+                # 'maximumRecords': 10,
                 # 'recordSchema': 'mods',
 
                 # 'record_XML_escaping' = True
