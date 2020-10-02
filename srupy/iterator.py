@@ -78,7 +78,8 @@ class SRUResponseIterator(BaseSRUIterator):
         except:
             self.number_of_records = 0
 
-        self._total_records_wanted = self.number_of_records  # limit to maximum nr of retrievable records
+        if self._total_records_wanted > self.number_of_records:
+            self._total_records_wanted = self.number_of_records  # limit to maximum nr of retrievable records
 
         try:
             self.echo = EchoedRequest(self.sru_response.xml.find(
