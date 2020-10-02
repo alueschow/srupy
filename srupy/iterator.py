@@ -59,7 +59,11 @@ class SRUResponseIterator(BaseSRUIterator):
         """Docstring."""
         # handle large values for maximumRecords parameter
         self._multipage_threshold = 100
-        self._total_records_wanted = int(params.get("maximumRecords"))
+        if params.get("maximumRecords"):
+            self._total_records_wanted = int(params.get("maximumRecords"))
+        else:
+            self._total_records_wanted = 999999999
+
         if self._total_records_wanted > self._multipage_threshold:
             params.update({
                 'maximumRecords': self._multipage_threshold,
@@ -74,8 +78,11 @@ class SRUResponseIterator(BaseSRUIterator):
         except:
             self.number_of_records = 0
 
-        self.echo = EchoedRequest(self.sru_response.xml.find(
-            './/' + self.srupy.sru_namespace + 'echoedSearchRetrieveRequest'))
+        try:
+            self.echo = EchoedRequest(self.sru_response.xml.find(
+                './/' + self.srupy.sru_namespace + 'echoedSearchRetrieveRequest'))
+        except:
+            self.echo = None
 
         # handle Request parameters
         self._maximum_records = int(params.get('maximumRecords'))
