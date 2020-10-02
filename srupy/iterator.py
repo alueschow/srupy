@@ -62,7 +62,7 @@ class SRUResponseIterator(BaseSRUIterator):
         if params.get("maximumRecords"):
             self._total_records_wanted = int(params.get("maximumRecords"))
         else:
-            self._total_records_wanted = 999999999
+            self._total_records_wanted = 999999999  # get all
 
         if self._total_records_wanted > self._multipage_threshold:
             params.update({
@@ -77,6 +77,8 @@ class SRUResponseIterator(BaseSRUIterator):
                 './/' + self.srupy.sru_namespace + 'numberOfRecords').text)
         except:
             self.number_of_records = 0
+
+        self._total_records_wanted = self.number_of_records  # limit to maximum nr of retrievable records
 
         try:
             self.echo = EchoedRequest(self.sru_response.xml.find(
