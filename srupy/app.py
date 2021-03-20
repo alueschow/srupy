@@ -15,8 +15,6 @@ from .models import Explain
 
 logger = logging.getLogger(__name__)
 
-SRU_NAMESPACE = '{http://docs.oasis-open.org/ns/search-ws/sruResponse}'
-
 
 class SRUpy(object):
     """Client for sending SRU requests.
@@ -56,6 +54,8 @@ class SRUpy(object):
                         information is missing, `requests` will fallback to
                         `'ISO-8859-1'`.
     :type encoding:      str
+    :param default_namespace:   default namespace of the responded xml
+    :type default_namespace: str
     :param request_args: Arguments to be passed to requests when issuing HTTP
                          requests. See the `documentation of requests
                          <http://docs.python-requests.org/en/master/api/#main-interface>`_
@@ -70,6 +70,7 @@ class SRUpy(object):
                  retry_status_codes=None,
                  default_retry_after=60,
                  encoding=None,
+                 default_namespace='{http://docs.oasis-open.org/ns/search-ws/sruResponse}',
                  **request_args):
         """Docstring."""
         self.endpoint = endpoint
@@ -89,7 +90,7 @@ class SRUpy(object):
         self.max_retries = max_retries
         self.retry_status_codes = retry_status_codes or [503]
         self.default_retry_after = default_retry_after
-        self.sru_namespace = SRU_NAMESPACE
+        self.sru_namespace = default_namespace
         self.encoding = encoding
         self.request_args = request_args
 
