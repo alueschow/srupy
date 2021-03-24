@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "srupy"
-version = "0.0.45"
+version = "0.1.1"
 description = "A Python client for fetching data from SRU endpoints"
 authors = ["Andreas Lüschow"]
 license = "MIT"
